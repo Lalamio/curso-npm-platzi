@@ -4,7 +4,8 @@
   "description": "curso de npm para saber gestionar de forma más eficiente mis proyectos",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/index.js",
+    "node": "node ./src/index.js && node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,13 @@
   "bugs": {
     "url": "https://github.com/Lalamio/curso-npm-platzi/issues"
   },
-  "homepage": "https://github.com/Lalamio/curso-npm-platzi#readme"
+  "homepage": "https://github.com/Lalamio/curso-npm-platzi#readme",
+  "dependencies": {
+    "json-server": "^0.17.4",
+    "moment": "^2.29.4",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.55.0"
+  }
 }

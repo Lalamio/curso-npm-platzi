@@ -1,0 +1,181 @@
+Clase 1.
+
+~* Dependencias.
+
+- npm install moment
+
+- npm install eslint --save-dev
+    dependencia que solo va a ser utilizada en el entorno de desarrollo.
+      - versión simplificada => npm install eslint -D
+
+npm install react --save ---> 
+  dependencia para ser llevada a producción.
+
+| nota: los paquetes instalados sin ningún flag son paquetes que se utilizan en la etapa de producción, mientras que los que tienen se utilizan en el entorno de desarrollo. más info: 
+
+Las dependencias de desarrollo son aquellos paquetes que necesitamos en un proyecto mientras estamos desarrollándolo, pero una vez tenemos el código generado del proyecto, no vuelven a hacer falta. Los paquetes instalados con el flag --save-dev o -D se instalan en esta modalidad, guardándolos en la sección devDependences del fichero package.json. Por otro lado, las dependencias de producción son aquellos paquetes que necesitamos tener en la web final generada, como librerías Javascript necesarias para su funcionamiento o paquetes similares. Los paquetes instalados con el flag --save-prod, -P o directamente sin ningún flag se instalan en esta modalidad, guardándolos en la sección dependences del fichero package.json |
+
+~* Paquetes Globales.
+
+- npm install -g
+    Ver lista de los paquetes
+      - cowsay : es un comando gracioso que muestra una vaca diciendo el texto que le pases después de nombrar el comando. 
+
+- npm list
+    Ver lista de paquetes que se han instalado.
+      -g : ver lista de paquetes globales instalados
+
+~* Instalación de dependencias específicas *~ 
+
+→ npm install package-name -o
+    Instalar una dependencia opcional.
+
+→ Se pueden generar conflictos cuando se tienen paquetes que usan la misma dependencia pero en versiones diferentes. Para evitar esto se puede simular una instalación con npm install package-name —dry-run. Con esto se simula la instalación pero sin agregar ningún paquete, si no hay ningún conflicto se procede a instalar de la manera convencional.
+
+→ npm install package-name@0.15.0
+    Instalar la versión especifica de un paquete. Si luego se quiere instalar la versión más reciente se usa npm install package-name@latest.
+
+→ npm install
+   Instala las dependencias que estén dentro de un package.json.
+
+~* Scripts en NPM *~
+
+En el archivo package.json encontraremos un apartado de scripts:
+
+  "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject"
+    },
+
+→ Podemos añadir n cantidad scripts y su estructura es la siguiente
+
+  "comando": "node directorio/del/script.js
+
+→ Concatenar varios scripts
+
+  "node": "node src/primerScript.js" && "node src/segundoScript.js"
+
+→ Si un script se llegase a “romper” no ejecutara el siguiente.
+
+
+~* NPX : node package execute *~
+
+→ Tiene la capacidad de ejecutar un paquete que no fue instalado previamente.
+
+→ Puedes ejecutar el siguiente comando para ver si ya está instalado para tu versión actual de npm:
+
+
+which npx
+Si no lo está, puede instalarlo así:
+
+
+npm install -g npx
+
+      !
+
+→ Conocer cómo actualizar dependencias es muy importante para mantener tus proyectos actualizados y libres de vulnerabilidades de seguridad.
+
+→ El comando npm outdate mostrará los paquetes que están desactualizados. Con el comando npm outdate --dd verás de manera más detallada esta información.
+
+      --> Cómo actualizar dependencias <--
+
+Para actualizar todas las dependencias utiliza el siguiente comando:
+
+bash $ npm update
+
+Ten en cuenta que actualizar varios paquetes no es recomendable, solamente deberías actualizar un paquete si estás muy seguro de que no afectará al proyecto y que realizaste los cambios pertinentes.
+
+bash $ npm update <paquete>
+
+Utiliza el siguiente comando para actualizar a la última versión (latest) de la dependencia, donde es el nombre del paquete.
+
+bash $ npm install <paquete>@latest ejem: react@latest.
+
+-> npm install --> se usa cuando descargamos o clonamos un proyecto de un repositorio y necesitamos que nos instale todas las dependencias necesarias.
+
+-> npm outdate --> Muestra los cambios que han tenido las versiones de las dependencias que descargamos (actualizaciones).
+
+
+      !
+
+-> La seguridad de tu proyecto puede ser vulnerada por paquetes desactualizados. Al momento de instalar tus paquetes con el comando npm install muestra una serie de advertencias (NPM WARN) de las dependencias desactualizadas.
+
+      --> auditar tus dependencias <--
+
+-> El comando npm audit muestra una descripción de las dependencias instaladas. Si se encuentran vulnerabilidades, se calculará el impacto al proyecto.
+  - Si se requiere un informe más detallado en formato JSON (JavaScript Object Notation), utiliza el comando npm audit --json.
+
+-> El comando npm audit fix proporciona una actualización de los paquetes, similar al comando npm update <paquete>. El comando npm audit fix --force proporciona una actualización de los subpaquetes de cada paquete, en todos sus niveles de profundidad.
+
+-> Si el problema persiste, es necesario actualizar el paquete a su última versión.
+
+bash $ npm install <paquete>@latest <-
+
+      --> Solución de problemas <--
+
+-> Cuando estés desarrollando un proyecto con NPM, puede que generes errores que no permitan seguir con tu trabajo. Saber manejar los errores es fundamental para solucionarlos y seguir con tus tareas (y no entrar en pánico). Alguno de estos errores pueden ser:
+
+-Errores en la configuración del archivo package.json
+-Errores de dependencias en node_modules
+-Errores del sistema operativo
+-Configuración errónea de Git o GitHub
+-Errores de escritura (typos)
+-Errores que no estén ligados directamente a NPM
+
+  ~* Error de dependencias en node_modules
+
+-> Existen situaciones en las que instalas una dependencia con una versión que no corresponde a la deseada. Esto ocurre porque NPM guarda en el caché una versión previamente instalada de un paquete, esto para mejorar los tiempos de instalación.
+
+-> En esta situación, puedes utilizar los siguientes comandos, el primero para borrar el caché de NPM y el segundo para verificar si están eliminados correctamente.
+
+ bash $ npm cache clean --force 
+ npm cache verify
+
+
+      !
+
+-> Conocer cómo eliminar dependencias, también es importante para mantener tus proyectos sin paquetes que no aporten la solución a tu problema, que ya no sean actualizados, o que exista una mejor implementación.
+
+      --> como eliminar paquetes <--
+
+Existen dos formas de eliminar paquetes:
+
+-Eliminando el paquete con el siguiente comando: bash $ npm uninstall <paquete>
+
+-Eliminarlo manualmente del archivo package.json. Al eliminar un paquete de manera manual, es necesario actualizar el directorio de node_modules.
+
+      --> como actualizar node_modules <--
+
+-> Actualizar el directorio node_modules sirve para limpiar las dependencias que previamente estaban en el proyecto. También cuando existe algún archivo corrupto o una mala instalación.
+
+-> Por lo tanto, deberás eliminar el directorio de node_modules y después ejecutar el comando npm install para instalar correctamente los paquetes. En ciertas situaciones, también es necesario eliminar el archivo package-lock.json.
+
+-> Puedes utilizar el siguiente comando de NPM para evitar escribir demasiado cada vez que lo necesites.
+
+json // package.json { "scripts": { "phoenix": "rm -f package-lock.json && rm -rf ./node_modules && npm i --no-fund --no-audit" } }
+
+
+      --> mostrar los pasos ejecutados por un comando de npm <--
+
+-> Para identificar el error que puede existir en tu proyecto, es necesario analizar cada paso que ejecuta un comando, para saber en qué punto específico ocurre el problema.
+
+-> El flag --dd en un comando de NPM, te mostrará de manera detallada cada paso ejecutado. De esta manera podrás observar si existe un error para solucionarlo.
+
+ bash $ npm [comando] --dd
+
+-> Otra forma, es ejecutar el comando de NPM. Si existe un error, la terminal te mostrará los diferentes errores que encontró. Al final de este resumen, existirá una ruta con los detalles del error, puedes abrir tal archivo para observar los pasos que ejecutó.
+
+-> utilizando el comando npm ci vamos a saber de librerías deprecadas: 
+      En el contexto de la programación es común encontrarse con código al que se denomina   deprecated. Básicamente el autor esta diciendo:
+            Esto que te ofrezco sigue funcionando, pero yo ya no me responsabilizo de que siga haciéndolo en un futuro, así que úsalo bajo tu propia responsabilidad (y no llores si deja de funcionar).
+
+
+      --> qué es el archivo package-lock.json <--
+
+-> El archivo package-lock.json describe todo el árbol de dependencias de cada paquete instalado.
+
+-> Cuando alguien hace fork de un repositorio no tiene el directorio node_modules por el archivo .gitignore. Mediante el comando npm install, instalarán las dependencias indicadas en el package.json con la versión indicada. También, se instalarán las sub-dependencias indicadas en package-lock.json con la versión indicada.
+
+-> Esto es importante para tener instaladas siempre la versión adecuada del paquete a utilizar en el proyecto.
